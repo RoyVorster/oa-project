@@ -1,0 +1,3 @@
+[submodule "quadrotor/mpl_plotter"]
+	path = quadrotor/mpl_plotter
+	url = https://github.com/kanishkegb/pyplot-3d.git
