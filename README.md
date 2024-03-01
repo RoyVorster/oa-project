@@ -6,6 +6,8 @@ We'll be working using the classes in this repository. You will all maintain a [
 - Make sure you have python >3.8 installed on your machine
 - Install [`pipenv`](https://pypi.org/project/pipenv/). This is what we'll be using to install dependencies
 - Clone your fork (see link above)
-- Install the dependencies by running `pipenv shell` in the repository
-- Run jupyter with `jupyter notebook`
+- Make sure that your inside the repository in your terminal
+- Run `python3 -m pipenv install` to install all the dependencies
+- Run `python3 -m pipenv shell` to enter the python environment
+- Run jupyter with `python3 -m jupyter notebook`
 - Check that you can run the first couple of cells of `1-introduction.ipynb`
