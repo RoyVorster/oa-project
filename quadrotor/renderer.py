@@ -11,7 +11,7 @@ import pyvista as pv
 
 from sym import Rot3
 
-from quadrotor.plotter_mpl.uav import Uav
+from quadrotor.mpl_plotter.uav import Uav
 from quadrotor.simulator import SimulatorState
 
 
