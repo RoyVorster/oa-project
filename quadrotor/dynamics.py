@@ -1,4 +1,5 @@
 """Dynamics base class"""
+from __future__ import annotations
 
 import numpy as np
 import sym
@@ -19,6 +20,23 @@ class QuadrotorState:
 
     # angular velocity (r, p, q)  [rad / s]
     angular_velocity: np.ndarray = field(default_factory=lambda: np.zeros(3))
+
+    def to_state_vector(self) -> np.ndarray:
+        return np.hstack([
+            self.position,
+            self.velocity,
+            np.array(self.orientation.to_storage()),
+            self.angular_velocity
+        ])
+
+    @classmethod
+    def from_state_vector(cls, state_vector: np.ndarray) -> QuadrotorState:
+        return QuadrotorState(
+            position=state_vector[:3],
+            velocity=state_vector[3:6],
+            orientation=sym.Rot3.from_storage(state_vector[6:10]),
+            angular_velocity=state_vector[10:],
+        )
 
 
 @dataclass
