@@ -1,17 +1,14 @@
-"""Basic wrapper around the plotter utility"""
+"""Plotting utilities"""
 
 import typing as T
 from pathlib import Path
 
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import animation
 import k3d
 import pyvista as pv
 
 from sym import Rot3
 
-from quadrotor.mpl_plotter.uav import Uav
 from quadrotor.simulator import SimulatorState
 
 
@@ -49,44 +46,3 @@ def animate_k3d(output: T.List[SimulatorState]) -> k3d.Plot:
     plot += model
 
     return plot
-
-
-# Very simple matplotlib animation
-def animate_matplotlib(output: T.List[SimulatorState]) -> animation.FuncAnimation:
-    plt.style.use("seaborn")
-
-    figure = plt.figure()
-    ax = figure.gca(projection='3d')
-
-    renderer = Uav(ax, 0.25)
-
-    # Compute limits based on trajectory
-    positions = np.array([o.state.position for o in output])
-    def get_axis_limits(axis: int) -> T.Tuple[float, float]:
-        return [min(positions[:, axis]) - 1.0, max(positions[:, axis]) + 1.0]
-
-    x_limits = get_axis_limits(0)
-    y_limits = get_axis_limits(1)
-    z_limits = get_axis_limits(2)
-
-    # Frame-by-frame update function
-    def update(frame: int, sim_state: SimulatorState) -> None:
-        nonlocal renderer, ax
-
-        renderer.draw_at(
-            x=sim_state[frame].state.position,
-            R=sim_state[frame].state.orientation.to_rotation_matrix(),
-        )
-
-        # Set limits
-        ax.set_xlim(x_limits)
-        ax.set_ylim(y_limits)
-        ax.set_zlim(z_limits)
-
-    return animation.FuncAnimation(
-        figure,
-        update,
-        frames=len(output),
-        interval=1,
-        fargs=(output,),
-    )
