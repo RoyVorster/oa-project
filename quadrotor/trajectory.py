@@ -13,8 +13,14 @@ class TrajectoryState:
     # xyz position  [m]
     position: np.ndarray
 
-    # xyz velocity  [m]
+    # xyz velocity  [m / s]
     velocity: np.ndarray = field(default_factory=lambda: np.zeros(3))
+
+    # Yaw [rad]
+    yaw: float = 0.0
+
+    # Yaw rate [rad / s]
+    yaw_rate: float = 0.0
 
 
 class TrajectoryBase:
