@@ -66,7 +66,3 @@ def animate_k3d(output: T.List[SimulatorState], t_lookahead: float = 2.0) -> k3d
     )
 
     return plot
-
-
-def animate_matplotlib(output: T.List[SimulatorState]) -> None:
-    raise NotImplementedError("Not implemented anymore!")
